@@ -65,13 +65,15 @@ struct ContentView: View {
             .onAppear {
                 Task {
                     do {
-                        desserts = try await viewModel.fetch()
+                        let fetchedDesserts = try await viewModel.fetch()
+                        desserts = fetchedDesserts.sorted {
+                            $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                        }
                     } catch {
                         print("Error: \(error)")
                     }
                 }
             }
-// ADD logic to put app in alphabetical order
             .sheet(isPresented: $isPresented) {
                 if let dessertDetails = dessertDetails {
                     DetailSheetView(details: dessertDetails, isPresented: $isPresented)
