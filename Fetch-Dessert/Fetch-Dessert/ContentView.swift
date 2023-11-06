@@ -16,10 +16,10 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            HStack {
+            HStack(spacing: 12) {
                 Text("Desserts")
                     .font(.largeTitle)
-                    .padding(.trailing, 8)
+
                 Image(systemName: "birthday.cake")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -32,7 +32,6 @@ struct ContentView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .clipShape(Rectangle())
                         } placeholder: {
                             Rectangle()
                                 .foregroundColor(.secondary)
@@ -95,7 +94,6 @@ struct ContentView: View {
 
 struct DetailSheetView: View {
     let details: DessertDetails
-    @Environment(\.dismiss) var dismiss
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -106,7 +104,6 @@ struct DetailSheetView: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .clipShape(Rectangle())
 
                     } placeholder: {
                         Rectangle()
