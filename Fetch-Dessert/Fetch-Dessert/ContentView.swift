@@ -83,9 +83,14 @@ struct ContentView: View {
     }
 
     func fetchDetails(id: String) async {
-        let details =  await viewModel.fetchDetails(id: id)
-        dessertDetails = details
+        do {
+            let details = try await viewModel.fetchDetails(id: id)
+            dessertDetails = details
+        } catch {
+            print("Error fetching details: \(error)")
+        }
     }
+
 }
 
 struct DetailSheetView: View {

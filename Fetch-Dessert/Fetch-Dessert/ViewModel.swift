@@ -22,7 +22,11 @@ class ViewModel: ObservableObject {
         }
     }
 
-    func fetchDetails(id: String) async -> DessertDetails? {
+    func fetchDetails(id: String) async throws -> DessertDetails? {
+        guard !id.isEmpty else {
+            throw NetworkError.invalidId
+        }
+
         guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(id)") else {
             return nil
         }
@@ -41,12 +45,7 @@ class ViewModel: ObservableObject {
 }
 
 enum NetworkError: Error {
-    case requestFailed
-    case invalidResponse
-    case decodingFailed
-    case rateLimitExceeded
-    case timeout
-    case genericError(String)
     case invalidURL
+    case invalidId
     case networkError(Error)
 }
